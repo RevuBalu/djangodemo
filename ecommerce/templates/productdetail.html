@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block content %}
+<div class="container-fluid">
+<div class="row">
+<img src="{{h.image.url}}"style="height:300px;width:50%">
+<div class="col-sm-6" >
+
+          <h5 class="fw-bold">{{h.name}}</h5>
+           <h6>price:{{h.price}}</h6>
+           <p style="text-align:justify;line-height:2;">{{h.desc}}</p>
+            <p>stock:{{h.stock}}</p>
+            {% if user.is_superuser == True %}
+                {% if h.stock == 0 %}
+                   <h2>Out of Stock</h2>
+                   <a href="{% url 'admin:index' %}" class="btn btn-danger mt-5">ADD STOCK</a>
+                {% else %}
+                  <h2>product in stock</h2>
+                  <a href="{% url 'admin:index' %}" class="btn btn-danger mt-5">ADD STOCK</a>
+                {% endif %}
+            {% else %}
+              {% if h.stock == 0 %}
+                <h2>Out of Stock</h2>
+              {% else %}
+                <a href="{% url 'cart:addtocart' h.name %}" class="btn btn-danger">Add to Cart</a>
+              {% endif %}
+            {% endif %}
+
+        </div>
+    </div></div>
+
+{% endblock %}
+    </div>
+
+</body>
+</html>

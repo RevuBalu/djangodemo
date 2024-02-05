@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block content %}
+<div>
+<img src="{% static 'images/banner1.png' %} " height="450px;" width="100%">
+</div>
+<div class="container-fluid mt-3" style="margin-bottom:100px;">
+    <h3 class="text-center fw-bold">Our Collections</h3>
+    <p style="text-align:justify;line-height:2;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
+
+</div>
+<div class="container" style="margin-bottom:100px;">
+<div class="row">
+{% for i in p %}
+    <div class="col-sm-4">
+        <div class="card" style="width: 18rem;">
+            <img src="{{i.image.url}}" style="height:300px;width:100%;">
+            <div class="card-body">
+                <h5 class="card-title text-center fw-bold">{{i.name}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted"></h6>
+                <p class="card-text"></p>
+                <a href="{% url 'shop:categorydetail' i.name %}" class="btn btn-danger" style="position:relative;left:35%;">products</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+{% endblock %}
+
+</body>
+</html>

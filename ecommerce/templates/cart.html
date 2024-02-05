@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block content %}
+<div class="container">
+    <div class="row text-center fs-5">
+        <h4 class="text-center">Shopping Cart</h4>
+        <div class="col-8"><table class="table table-bordered"><tr><th colspan="5">Cart Items</th></tr>
+
+        {% for i in d %}
+        <tr><td>
+            <img src="{{ i.product.image.url }}" height="200px" width="200px">
+
+
+        </td><td><h6>{{i.product.name}}</h6></td>
+        <td><h6>product id:{{i.product.id}}</h6>
+        <h6>Unit Price:{{i.product.price}}</h6>
+        <h6>Quantity:{{i.quantity}}*{{i.product.price}}</h6>
+        <td>Subtotal:{{i.subtotal}}</td>
+        <td>
+            {% if i.product.stock > 0 %}<a href="{% url 'cart:addtocart' i.product.name %}"><i class="fa-solid fa-circle-plus text-secondary fs-5"></i></a>
+        <a href="{% url 'cart:cart_remove' i.product.name %}"><i class="fa-solid fa-circle-minus text-secondary fs-5"></i></a>
+        <a href="{% url 'cart:full_remove' i.product.name %}"><i class="fa-solid fa-trash text-secondary fs-5"></i></a>
+        {% else %}
+        <a href="{% url 'cart:cart_remove' i.product.name %}"><i class="fa-solid fa-circle-minus text-secondary fs-5"></i></a>
+        <a href="{% url 'cart:full_remove' i.product.name %}"><i class="fa-solid fa-trash text-secondary fs-5"></i></a></td></tr>
+        {% endif %}
+            {% endfor %}
+            </table></div>
+        <div class="col-4" style="position:relative;"><table class="table table-bordered"><tr><th colspan="6">Check Out</th></tr>
+        <tr><td>Total:{{t}}</td></tr></table>
+        <a href="{% url 'cart:orderform' %}" class="btn btn-danger" style="position:absolute;left:10px;">Place Order</a>
+        <a href="{% url 'shop:allcategories' %}" class="btn btn-danger" style="position:absolute;right:10px;" >Continue Shopping</a>
+            </div>
+    </div>
+</div>
+{% endblock %}
+
+</body>
+</html>
